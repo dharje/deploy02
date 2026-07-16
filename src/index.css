@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fffcf6;
+  --color-cream-dark: #fff7e7;
+  --color-brand-red: #e52c2c;
+  --color-brand-dark-red: #720000;
+  --color-brand-rust: #c95137;
+  --color-brand-gold: #886200;
+  --color-text-body: #4e423e;
+  --color-text-footer: #3b3330;
+  --color-border-light: #e9e3e0;
+  
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-text-body);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom premium styling classes */
+.gold-text-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #aa7c11 50%, #f3e5ab 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-bg-gradient {
+  background: linear-gradient(135deg, #e5c060 0%, #b8860b 50%, #ffd700 100%);
+}
+
+.red-bg-gradient {
+  background: linear-gradient(135deg, #e52c2c 0%, #9e1414 100%);
+}
+
+@keyframes ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker 30s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Smooth zoom-in on hover for images */
+.zoom-container {
+  overflow: hidden;
+}
+
+.zoom-container img {
+  transition: transform 0.7s ease-in-out;
+}
+
+.zoom-container:hover img {
+  transform: scale(1.06);
+}
+
