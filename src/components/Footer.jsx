@@ -237,7 +237,7 @@ export default function Footer() {
               <li className="flex gap-2.5 items-center">
                 <Envelope size={16} className="text-brand-gold flex-shrink-0" />
                 <a
-                  href="mailto:dharjewelleryweb@gmail.com"
+                  href="mailto:contact@dharjewelleryhouse.in"
                   className="hover:text-yellow-300"
                 >
                   dharjewelleryweb@gmail.com
