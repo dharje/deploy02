@@ -7,12 +7,13 @@ import Collection from './pages/Collection';
 
 import ScrollToTop from './components/ScrollToTop';
 import Story from './pages/Story';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen relative">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -20,6 +21,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/collection/:filterType" element={<Collection />} />
         </Routes>
+        <FloatingWhatsApp />
         <Footer />
       </div>
     </Router>

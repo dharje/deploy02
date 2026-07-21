@@ -205,7 +205,7 @@ export default function Home() {
           >
             {/* Background image or gradient */}
             {slide.image ? (
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 flex items-center justify-center">
                 {/* Mobile Banner */}
                 <img 
                   src={slide.mobileImage || slide.image} 
@@ -239,7 +239,7 @@ export default function Home() {
               </p>
               
               <div className="flex flex-col mt-6 sm:mt-65 sm:flex-row gap-2.5 sm:gap-4 w-full sm:w-auto items-center">
-                <a 
+                {/* <a 
                   href={slide.cta1Link} 
                   className="bg-brand-rust hover:bg-brand-red text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-lg sm:rounded-xl shadow-md sm:shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 w-max sm:w-auto text-center"
                 >
@@ -252,7 +252,7 @@ export default function Home() {
                   className="bg-[#25D366] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-lg sm:rounded-xl shadow-md sm:shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 w-max sm:w-auto text-center"
                 >
                   {slide.cta2}
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
