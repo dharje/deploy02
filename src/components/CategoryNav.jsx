@@ -224,7 +224,7 @@ export default function CategoryNav() {
 
       {/* Mega Menus (Rendered outside the scroll container to avoid clipping) */}
       {categories.map((cat, idx) => {
-        const isExcluded = ['COINS', 'GIFTS'].includes(cat.name);
+        const isExcluded = ['COINS', 'GIFTS', 'GEMSTONE'].includes(cat.name);
         if (isExcluded) return null;
 
         const cleanName = cat.name.replace('\n', ' ');
