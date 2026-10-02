@@ -9,17 +9,43 @@ export default function Collection() {
   // Normalize the filter string for comparison
   const normalizedFilter = filterType ? filterType.toLowerCase() : '';
 
-  // Filter products by either metalType or category matching the route parameter
+  let targetMetal = null;
+  let targetCategory = null;
+  let targetGender = null;
+
+  const complexMatch = normalizedFilter.match(/^(gold|silver)-(.*?)-(men|women)$/);
+  if (complexMatch) {
+    targetMetal = complexMatch[1];
+    
+    let cat = complexMatch[2];
+    if (cat === 'ring') targetCategory = 'rings';
+    else if (cat === 'necklace') targetCategory = 'necklaces';
+    else if (cat === 'earring') targetCategory = 'earrings';
+    else if (cat === 'bangle-bracelet') targetCategory = 'bangles-bracelets';
+    else if (cat === 'chain') targetCategory = 'chains';
+    else targetCategory = cat;
+    
+    targetGender = complexMatch[3] === 'men' ? 'male' : 'female';
+  }
+
+  // Filter products by either complex match or basic metalType/category match
   const filteredProducts = products.filter(product => {
+    if (targetMetal && targetCategory && targetGender) {
+      const metalMatch = (product.metalType || '').toLowerCase() === targetMetal;
+      const catMatch = (product.category || '').toLowerCase() === targetCategory;
+      const genMatch = (product.gender || '').toLowerCase() === targetGender;
+      return metalMatch && catMatch && genMatch;
+    }
+
     return (
-      product.metalType.toLowerCase() === normalizedFilter ||
-      product.category.toLowerCase() === normalizedFilter
+      (product.metalType || '').toLowerCase() === normalizedFilter ||
+      (product.category || '').toLowerCase() === normalizedFilter
     );
   });
 
   // Capitalize for display
   const displayTitle = filterType 
-    ? filterType.charAt(0).toUpperCase() + filterType.slice(1) 
+    ? filterType.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
     : 'All';
 
   return (
@@ -47,7 +73,7 @@ export default function Collection() {
 
         {/* Product Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {filteredProducts.map(product => (
               <ProductCard key={product.id} product={product} />
             ))}

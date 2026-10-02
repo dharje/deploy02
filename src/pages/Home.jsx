@@ -23,8 +23,8 @@ export default function Home() {
     {
       // title: 'A Legacy of Purity & Timeless Artistry',
       // subtitle: 'Crafting royal gold chokers, certified diamond bangles, and heirloom antique jewelry for generations.',
-      image: '/images/banners/DHAR_BANNER_01.jpg.jpeg',
-      mobileImage: '/images/banners/mobile_01.png',
+      image: '/images/banners/DHAR_BANNER_01.webp',
+      mobileImage: '/images/banners/mobile_01.webp',
       cta1: 'Explore Collections',
       cta1Link: '#collections',
       cta2: 'WhatsApp Inquiry',
@@ -33,8 +33,8 @@ export default function Home() {
     {
       // title: 'Dazzling Diamond Masterpieces',
       // subtitle: 'Celebrate your infinite love with SGL & GIA certified high-brilliance diamond creations in VVS-GH quality.',
-      image: '/images/banners/DHAR_BANNER_02.jpg.jpeg',
-      mobileImage: '/images/banners/mobile_02.png',
+      image: '/images/banners/DHAR_BANNER_02.webp',
+      mobileImage: '/images/banners/mobile_02.webp',
       gradientBg: 'from-[#720000] via-[#500000] to-[#250000]',
       cta1: 'Explore Collections',
       cta1Link: '#collections',
@@ -42,24 +42,24 @@ export default function Home() {
       cta2Link: 'https://wa.me/9198368 18376'
     },
     {
-      image: '/images/banners/DHAR_BANNER_03.jpg.jpeg',
-      mobileImage: '/images/banners/mobile_03.png',
+      image: '/images/banners/DHAR_BANNER_03.webp',
+      mobileImage: '/images/banners/mobile_03.webp',
       cta1: 'Explore Collections',
       cta1Link: '#collections',
       cta2: 'WhatsApp Inquiry',
       cta2Link: 'https://wa.me/919836818376'
     },
     {
-      image: '/images/banners/DHAR_BANNER_04.jpg.jpeg',
-      mobileImage: '/images/banners/mobile_04.png',
+      image: '/images/banners/DHAR_BANNER_04.webp',
+      mobileImage: '/images/banners/mobile_04.webp',
       cta1: 'Explore Collections',
       cta1Link: '#collections',
       cta2: 'WhatsApp Inquiry',
       cta2Link: 'https://wa.me/919836818376'
     },
     {
-      image: '/images/banners/DHAR_BANNER_05.jpg.jpeg',
-      mobileImage: '/images/banners/mobile_01.png',
+      image: '/images/banners/DHAR_BANNER_05.webp',
+      mobileImage: '/images/banners/mobile_01.webp',
       cta1: 'Explore Collections',
       cta1Link: '#collections',
       cta2: 'WhatsApp Inquiry',
@@ -105,10 +105,11 @@ export default function Home() {
 
   const rate22K = rates.rate22K;
   const rate24K = rates.rate24K;
-  const makingChargePercent = 12; // 12% making charges
+  const rate18K = Math.round(rate24K * 0.75); // 18K is 75% of 24K
+  const makingChargePercent = 10; // 10% making charges
   const gstPercent = 3; // 3% GST
 
-  const basePricePerGram = calcPurity === '22K' ? rate22K : rate24K;
+  const basePricePerGram = calcPurity === '22K' ? rate22K : rate18K;
   const rawGoldValue = basePricePerGram * calcWeight;
   const makingCharges = rawGoldValue * (makingChargePercent / 100);
   const gstValue = (rawGoldValue + makingCharges) * (gstPercent / 100);
@@ -118,7 +119,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('ALL');
   const filteredProducts = activeTab === 'ALL' 
     ? products 
-    : products.filter(p => p.metalType.toUpperCase() === activeTab);
+    : products.filter(p => (p.metalType || '').toUpperCase() === activeTab);
 
   // Circular Categories Array
   const categories = [
@@ -289,32 +290,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. CIRCULAR CATEGORY SHOWCASE */}
-      <section className="py-12 bg-white border-b border-[#e9e3e0]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-nowrap md:flex-wrap md:justify-center items-center gap-6 sm:gap-10 overflow-x-auto pb-4 md:pb-0 scrollbar-none">
-            {categories.map((cat, idx) => (
-              <a 
-                key={idx} 
-                href={`/collection/${cat.name.toLowerCase()}`}
-                onClick={() => {
-                  if (cat.name.includes('Silver')) setActiveTab('SILVER');
-                  else if (cat.name.includes('Coin')) setActiveTab('GOLD');
-                  else setActiveTab('ALL');
-                }}
-                className="flex flex-col items-center flex-shrink-0 group text-center"
-              >
-                <div className="w-[72px] h-[72px] sm:w-[84px] sm:h-[84px] rounded-full bg-[#fffcf6] border border-[#e9e3e0] flex items-center justify-center shadow-sm group-hover:shadow-md group-hover:border-brand-gold transition-all duration-500 transform group-hover:scale-105">
-                  {cat.svg}
-                </div>
-                <span className="text-[11px] sm:text-xs font-semibold text-text-body mt-2.5 uppercase tracking-wider group-hover:text-brand-red transition-colors">
-                  {cat.name}
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* 3. INTERACTIVE GOLD RATE CALCULATOR */}
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -336,7 +312,7 @@ export default function Home() {
             </div>
             
             <p className="text-xs text-text-body/80 leading-relaxed font-light">
-              Dhar Jewellery House provides full transparency. Calculate the estimated pricing of ornaments based on current real-time market rates in Kolkata (22K gold @ ₹ {rate22K.toLocaleString('en-IN')}/g, 24K gold @ ₹ {rate24K.toLocaleString('en-IN')}/g). Included is standard 12% making charges and 3% GST.
+              Dhar Jewellery House provides full transparency. Calculate the estimated pricing of ornaments based on current real-time market rates in Kolkata (18K gold @ ₹ {rate18K.toLocaleString('en-IN')}/g, 22K gold @ ₹ {rate22K.toLocaleString('en-IN')}/g). Included is standard 10% making charges and 3% GST.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
@@ -345,20 +321,20 @@ export default function Home() {
                 <label className="block text-[10px] uppercase font-extrabold text-brand-gold tracking-widest mb-2">Select Purity</label>
                 <div className="flex bg-[#fffcf6] p-1 rounded-xl border border-[#e9e3e0]">
                   <button 
+                    onClick={() => setCalcPurity('18K')}
+                    className={`flex-1 text-center py-2 text-xs font-bold rounded-lg transition-all ${
+                      calcPurity === '18K' ? 'bg-brand-red text-white shadow-md' : 'text-text-body hover:bg-cream-dark'
+                    }`}
+                  >
+                    18K Gold (75.0% Pure)
+                  </button>
+                  <button 
                     onClick={() => setCalcPurity('22K')}
                     className={`flex-1 text-center py-2 text-xs font-bold rounded-lg transition-all ${
                       calcPurity === '22K' ? 'bg-brand-red text-white shadow-md' : 'text-text-body hover:bg-cream-dark'
                     }`}
                   >
                     22K Gold (91.6% Pure)
-                  </button>
-                  <button 
-                    onClick={() => setCalcPurity('24K')}
-                    className={`flex-1 text-center py-2 text-xs font-bold rounded-lg transition-all ${
-                      calcPurity === '24K' ? 'bg-brand-red text-white shadow-md' : 'text-text-body hover:bg-cream-dark'
-                    }`}
-                  >
-                    24K Gold (99.9% Pure)
                   </button>
                 </div>
               </div>
@@ -518,7 +494,7 @@ export default function Home() {
         </div>
         
         {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {filteredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -534,7 +510,7 @@ export default function Home() {
             <div>
               <span className="text-[10px] uppercase font-bold text-brand-gold tracking-[0.25em] block mb-2">Our Foundation Story</span>
               <h2 className="text-3xl sm:text-4xl font-serif font-extrabold text-brand-dark-red tracking-wide uppercase leading-tight">
-                Crafting Legacies Since 1978
+                Crafting Legacies Since 1976
               </h2>
               <div className="w-16 h-[1.5px] bg-brand-gold mt-3"></div>
             </div>
@@ -579,7 +555,7 @@ export default function Home() {
                 </p>
                 <div className="mt-6 flex items-center justify-center gap-1.5">
                   <span className="w-4 h-[1px] bg-brand-gold"></span>
-                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-yellow-400">Trusted Since 1978</span>
+                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-yellow-400">Trusted Since 1976</span>
                   <span className="w-4 h-[1px] bg-brand-gold"></span>
                 </div>
               </div>

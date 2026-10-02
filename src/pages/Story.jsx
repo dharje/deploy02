@@ -16,7 +16,7 @@ export default function Story() {
         
         <div className="space-y-6 text-text-body/90 leading-relaxed font-light text-lg">
           <p className="font-medium text-xl text-brand-rust">
-            Crafting purity and trust since 1978. Dhar Jewellery House has curated timeless traditional gold, contemporary diamonds, and elegant silver jewelry for over four decades.
+            Crafting purity and trust since 1976. Dhar Jewellery House has curated timeless traditional gold, contemporary diamonds, and elegant silver jewelry for over five decades.
           </p>
           
           <p>

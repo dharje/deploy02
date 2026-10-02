@@ -23,7 +23,7 @@ export default function Footer() {
           <div className="space-y-6">
             <div>
               <img
-                src="/images/logo/LOGO_06.png"
+                src="/images/logo/LOGO_06.webp"
                 alt="Dhar Jewellery Logo"
                 className="h-25 object-contain"
               />
@@ -31,7 +31,7 @@ export default function Footer() {
             </div>
 
             <p className="text-xs text-[#fff6ed]/80 leading-relaxed font-light">
-              Crafting purity and trust since 1978. Dhar Jewellery House has
+              Crafting purity and trust since 1976. Dhar Jewellery House has
               curated timeless traditional gold, contemporary diamonds, and
               elegant silver jewelry for over four decades, celebrating your
               most precious memories.
@@ -249,9 +249,11 @@ export default function Footer() {
                   className="text-brand-gold flex-shrink-0 mt-0.5"
                 />
                 <span className="leading-normal text-[#fff6ed]/80">
-                  Monday to Saturday:
+                  Monday to Saturday: (Sunday Closed)
                   <br />
-                  11:00 AM - 8:30 PM (Sunday Closed)
+                  11:00 AM - 3:00 PM 
+                  <br/>
+                  5:30 PM - 10:00 PM
                 </span>
               </li>
             </ul>

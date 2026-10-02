@@ -34,7 +34,11 @@ export default function ProductDetail() {
   const [activeImage, setActiveImage] = useState(baseProduct.image);
 
   // Dynamic Weight & Price Adjuster
-  const [customWeight, setCustomWeight] = useState(baseProduct.weightVal);
+  const [customWeight, setCustomWeight] = useState(baseProduct.weightVal || 0);
+
+  const isGemstoneProduct = (baseProduct.category || '').toUpperCase() === 'GEMSTONE' || (baseProduct.metalType || '').toUpperCase() === 'GEMSTONE';
+  const [gemstoneGrade, setGemstoneGrade] = useState('gradeA');
+  const [gemstoneSize, setGemstoneSize] = useState(1);
   
   const [rates, setRates] = useState({
     rate22K: 7120,
@@ -55,24 +59,35 @@ export default function ProductDetail() {
   const goldRatePerGram = is24K ? rates.rate24K : rates.rate22K;
   
   // Dynamic calculation for gold items
-  const isGoldProduct = baseProduct.metalType.toUpperCase() === 'GOLD';
+  const isGoldProduct = (baseProduct.metalType || '').toUpperCase() === 'GOLD';
   const rawValue = customWeight * goldRatePerGram;
   
   // Making charges & GST details
   const makingCharges = rawValue * 0.12;
   const gstValue = (rawValue + makingCharges) * 0.03;
-  const estimatedTotalPrice = isGoldProduct 
+  const estimatedTotalPrice = isGoldProduct && customWeight > 0
     ? Math.round(rawValue + makingCharges + gstValue)
-    : baseProduct.priceVal; // For diamond products, price is kept fixed in this simple estimator
+    : baseProduct.priceVal; // For diamond/silver products, price is kept fixed in this simple estimator
 
-  const formattedPrice = isGoldProduct 
+  // Dynamic calculation for gemstone items
+  let gemstoneEstimatedPrice = 0;
+  if (isGemstoneProduct) {
+    const gradePrice = Number(baseProduct[gemstoneGrade]) || 0;
+    gemstoneEstimatedPrice = gemstoneSize * gradePrice;
+  }
+
+  const formattedPrice = isGoldProduct && customWeight > 0
     ? `₹ ${estimatedTotalPrice.toLocaleString('en-IN')}`
-    : baseProduct.price;
+    : isGemstoneProduct && gemstoneEstimatedPrice > 0
+    ? `₹ ${gemstoneEstimatedPrice.toLocaleString('en-IN')}`
+    : baseProduct.price || 'Call for Price';
 
   // Inquire Action details
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "919836818376";
+  const weightString = customWeight > 0 ? `Weight: ${customWeight.toFixed(2)}g, ` : '';
+  const gemstoneString = isGemstoneProduct ? `Grade: ${gemstoneGrade.replace('grade', '')}, Size: ${gemstoneSize}, ` : '';
   const whatsappMessage = encodeURIComponent(
-    `Hi Dhar Jewellery House! I am highly interested in the "${baseProduct.name}" (SKU: ${baseProduct.sku}). Specifications: Weight: ${customWeight.toFixed(2)}g, Purity: ${baseProduct.purity}, Estimated Price: ${formattedPrice}. Please guide me on booking an in-store trial.`
+    `Hi Dhar Jewellery House! I am highly interested in the "${baseProduct.name}" (SKU: ${baseProduct.sku}). Specifications: ${weightString}${gemstoneString}Purity: ${baseProduct.purity}, Estimated Price: ${formattedPrice}. Please guide me on booking an in-store trial.`
   );
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
@@ -233,6 +248,43 @@ export default function ProductDetail() {
                 </div>
                 <p className="text-[10px] text-text-body/50 text-center font-light leading-normal">
                   *Weight can vary slightly based on final handcrafted polish. Prices fluctuate daily.
+                </p>
+              </div>
+            )}
+            {/* Gemstone Grade & Size Selector */}
+            {isGemstoneProduct && (
+              <div className="space-y-3.5 bg-cream-dark/30 p-4.5 rounded-2xl border border-[#e9e3e0]/60">
+                <div className="flex items-center gap-2 text-brand-gold mb-2">
+                  <Sparkle size={18} weight="fill" />
+                  <span className="text-[10px] uppercase font-extrabold tracking-widest">Select Gemstone Grade & Size</span>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-1/2 space-y-1">
+                    <label className="text-[10px] uppercase font-bold text-text-body/60">Grade</label>
+                    <select 
+                      value={gemstoneGrade}
+                      onChange={(e) => setGemstoneGrade(e.target.value)}
+                      className="w-full bg-white border border-[#e9e3e0] text-sm text-text-body p-3 rounded-xl focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors font-medium"
+                    >
+                      <option value="gradeA">Grade A (Premium)</option>
+                      <option value="gradeB">Grade B (Standard)</option>
+                      <option value="gradeC">Grade C (Basic)</option>
+                    </select>
+                  </div>
+                  <div className="w-1/2 space-y-1">
+                    <label className="text-[10px] uppercase font-bold text-text-body/60">Size</label>
+                    <input 
+                      type="number"
+                      min="1"
+                      step="0.1"
+                      value={gemstoneSize}
+                      onChange={(e) => setGemstoneSize(Math.max(1, Number(e.target.value)))}
+                      className="w-full bg-white border border-[#e9e3e0] text-sm text-text-body p-3 rounded-xl focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors font-medium"
+                    />
+                  </div>
+                </div>
+                <p className="text-[10px] text-text-body/50 text-center font-light leading-normal mt-2">
+                  *Different grades offer varying levels of clarity, color intensity, and astrological benefits.
                 </p>
               </div>
             )}

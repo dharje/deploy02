@@ -14,9 +14,9 @@ export default function ProductCard({ product }) {
     return () => { active = false; };
   }, []);
 
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "919836818376";
   
-  const isGoldProduct = product.metalType.toUpperCase() === 'GOLD';
+  const isGoldProduct = (product.metalType || '').toUpperCase() === 'GOLD';
   
   // Calculate price dynamically if rates are loaded and it's a gold product
   let displayPrice = product.price || 'Call for Price';
@@ -28,14 +28,14 @@ export default function ProductCard({ product }) {
     const is18K = product.purity.toLowerCase().includes('18k') || product.purity.toLowerCase().includes('18 karat');
     const goldRatePerGram = is18K ? rates.rate18K : rates.rate22K;
     const rawValue = product.weightVal * goldRatePerGram;
-    const makingCharges = rawValue * 0.12;
+    const makingCharges = rawValue * 0.10;
     const gstValue = (rawValue + makingCharges) * 0.03;
     const estimatedTotalPrice = Math.round(rawValue + makingCharges + gstValue);
     
     displayPrice = estimatedTotalPrice > 0 ? `₹ ${estimatedTotalPrice.toLocaleString('en-IN')}` : 'Call for Price';
     
     const dynamicWhatsAppMessage = encodeURIComponent(
-      `Hi Dhar Jewellery House! I am interested in the ${product.name} (SKU: ${product.sku}) priced dynamically at ${displayPrice} based on live gold rates. Could you please share more details or schedule an in-store viewing?`
+      `Hi Dhar Jewellery House! I am interested in the ${product.name} (SKU: ${product.sku}) priced dynamically at ${displayPrice} based on live rates. Could you please share more details or schedule an in-store viewing?`
     );
     dynamicWhatsAppUrl = `https://wa.me/${whatsappNumber}?text=${dynamicWhatsAppMessage}`;
   }
@@ -97,8 +97,8 @@ export default function ProductCard({ product }) {
         {/* Pricing & CTA Action */}
         <div className="mt-2.5">
           <div className="flex justify-between items-baseline mb-2">
-            <span className="text-[10px] text-text-body/50 uppercase tracking-wider font-semibold">Estimated Price</span>
-            <p className="text-lg sm:text-lg font-serif font-extrabold text-brand-rust tracking-tight">
+            <span className="text-[11px] text-text-body/50 uppercase tracking-wider font-semibold">EST Price</span>
+            <p className="text-[11px] sm:text-lg font-serif font-extrabold text-brand-rust tracking-tight">
               {displayPrice}
             </p>
           </div>

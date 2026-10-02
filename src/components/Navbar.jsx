@@ -118,7 +118,7 @@ export default function Navbar() {
           {/* Center Brand Identity: Main Wordmark */}
           <div className="col-span-3 md:col-span-1 flex flex-col items-center justify-center">
             <Link to="/" className="text-center group block">
-              <img src="/images/logo/LOGO_06.png" alt="Dhar Jewellery Logo" className="h-21 sm:h-30 object-contain mx-auto transition-transform duration-300 group-hover:scale-110" />
+              <img src="/images/logo/LOGO_06.webp" alt="Dhar Jewellery Logo" className="h-21 sm:h-30 object-contain mx-auto transition-transform duration-300 group-hover:scale-110" />
             </Link>
           </div>
 
@@ -126,7 +126,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center justify-end gap-3 text-right">
             <div className="leading-tight">
               <p className="font-serif font-bold text-xs uppercase text-brand-gold tracking-wider">Legacy of Trust</p>
-              <p className="text-[10px] text-text-body opacity-85 font-medium">Celebrating 48 Years</p>
+              <p className="text-[10px] text-text-body opacity-85 font-medium">Celebrating 50 Years</p>
             </div>
             <svg className="w-10 h-10 text-brand-gold" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="rgba(136,98,0,0.06)"/>
@@ -163,7 +163,7 @@ export default function Navbar() {
               }`}
             >
               <Link to="/" className="flex flex-col group">
-                <img src="/images/logo/LOGO_06W.png" alt="Dhar Jewellery Logo" className="h-20 object-contain transition-transform duration-300 group-hover:scale-105" />
+                <img src="/images/logo/LOGO_06W.webp" alt="Dhar Jewellery Logo" className="h-20 object-contain transition-transform duration-300 group-hover:scale-105" />
               </Link>
             </div>
 
