@@ -117,9 +117,29 @@ export default function Home() {
 
   // Collection Tabs State
   const [activeTab, setActiveTab] = useState('ALL');
-  const filteredProducts = activeTab === 'ALL' 
+  
+  // Pagination State & Responsive Items Per Page
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(1); // Reset page on tab change
+  }, [activeTab]);
+
+  const allFilteredProducts = activeTab === 'ALL' 
     ? products 
     : products.filter(p => (p.metalType || '').toUpperCase() === activeTab);
+
+  // 10 items for mobile (5 rows of 2), 12 items for desktop (3 rows of 4)
+  const itemsPerPage = isMobile ? 10 : 12;
+  const totalPages = Math.ceil(allFilteredProducts.length / itemsPerPage);
+  const currentProducts = allFilteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   // Circular Categories Array
   const categories = [
@@ -495,10 +515,49 @@ export default function Home() {
         
         {/* Product Cards Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {filteredProducts.map(product => (
+          {currentProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-2 mt-12">
+            <button 
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="p-2 rounded-full text-brand-gold hover:bg-brand-gold/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+              aria-label="Previous page"
+            >
+              <CaretLeft size={20} weight="bold" />
+            </button>
+            
+            <div className="flex gap-2">
+              {[...Array(totalPages)].map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentPage(idx + 1)}
+                  className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center transition-all ${
+                    currentPage === idx + 1 
+                      ? 'bg-brand-rust text-white shadow-md' 
+                      : 'text-text-body hover:bg-[#e9e3e0]'
+                  }`}
+                >
+                  {idx + 1}
+                </button>
+              ))}
+            </div>
+
+            <button 
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="p-2 rounded-full text-brand-gold hover:bg-brand-gold/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+              aria-label="Next page"
+            >
+              <CaretRight size={20} weight="bold" />
+            </button>
+          </div>
+        )}
       </section>
       
       {/* 6. OUR LEGACY & HERITAGE */}

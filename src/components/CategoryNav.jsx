@@ -237,6 +237,11 @@ export default function CategoryNav() {
         
         const titleCaseName = singularName.charAt(0).toUpperCase() + singularName.slice(1).toLowerCase();
 
+        const hasMensOptions = !['NECKLACES', 'EARRINGS', 'MANGALSUTRA'].includes(cleanName);
+        const baseSlug = singularName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const mensTitleCaseName = cleanName === 'BANGLES & BRACELETS' ? 'Bracelet' : titleCaseName;
+        const womensTitleCaseName = cleanName === 'BANGLES & BRACELETS' ? 'Bangle & Bracelet' : titleCaseName;
+
         return (
           <div 
             key={`dropdown-${idx}`}
@@ -250,10 +255,15 @@ export default function CategoryNav() {
             <div className="absolute top-0 w-full h-4 bg-transparent -translate-y-full"></div>
             
             <div className="bg-white border border-[#e9e3e0] shadow-xl rounded-xl p-3 flex gap-4 max-w-4xl flex-wrap justify-center mt-1">
-              <Link to={`/collection/gold-${singularName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-men`} className="text-xs px-6 py-2.5 bg-[#fffdfa] border border-[#f0ebe1] hover:border-brand-gold hover:bg-[#fffcf6] hover:text-brand-red rounded-lg transition-all font-medium text-text-body">Gold {titleCaseName} for Men</Link>
-              <Link to={`/collection/gold-${singularName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-women`} className="text-xs px-6 py-2.5 bg-[#fffdfa] border border-[#f0ebe1] hover:border-brand-gold hover:bg-[#fffcf6] hover:text-brand-red rounded-lg transition-all font-medium text-text-body">Gold {titleCaseName} for Women</Link>
-              <Link to={`/collection/silver-${singularName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-men`} className="text-xs px-6 py-2.5 bg-[#fffdfa] border border-[#f0ebe1] hover:border-brand-gold hover:bg-[#fffcf6] hover:text-brand-red rounded-lg transition-all font-medium text-text-body">Silver {titleCaseName} for Men</Link>
-              <Link to={`/collection/silver-${singularName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-women`} className="text-xs px-6 py-2.5 bg-[#fffdfa] border border-[#f0ebe1] hover:border-brand-gold hover:bg-[#fffcf6] hover:text-brand-red rounded-lg transition-all font-medium text-text-body">Silver {titleCaseName} for Women</Link>
+              {hasMensOptions && (
+                <Link to={`/collection/gold-${baseSlug}-men`} className="text-xs px-6 py-2.5 bg-[#fffdfa] border border-[#f0ebe1] hover:border-brand-gold hover:bg-[#fffcf6] hover:text-brand-red rounded-lg transition-all font-medium text-text-body">Gold {mensTitleCaseName} for Men</Link>
+              )}
+              <Link to={`/collection/gold-${baseSlug}-women`} className="text-xs px-6 py-2.5 bg-[#fffdfa] border border-[#f0ebe1] hover:border-brand-gold hover:bg-[#fffcf6] hover:text-brand-red rounded-lg transition-all font-medium text-text-body">Gold {womensTitleCaseName} for Women</Link>
+              
+              {hasMensOptions && (
+                <Link to={`/collection/silver-${baseSlug}-men`} className="text-xs px-6 py-2.5 bg-[#fffdfa] border border-[#f0ebe1] hover:border-brand-gold hover:bg-[#fffcf6] hover:text-brand-red rounded-lg transition-all font-medium text-text-body">Silver {mensTitleCaseName} for Men</Link>
+              )}
+              <Link to={`/collection/silver-${baseSlug}-women`} className="text-xs px-6 py-2.5 bg-[#fffdfa] border border-[#f0ebe1] hover:border-brand-gold hover:bg-[#fffcf6] hover:text-brand-red rounded-lg transition-all font-medium text-text-body">Silver {womensTitleCaseName} for Women</Link>
             </div>
           </div>
         );

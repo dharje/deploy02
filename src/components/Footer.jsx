@@ -10,14 +10,17 @@ import {
   MapPin,
   Clock,
 } from "@phosphor-icons/react";
+import ReviewScroll from "./ReviewScroll";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#3b3330] text-[#fff6ed] mt-16 pt-16 pb-8 border-t-4 border-brand-gold">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Grid */}
+    <>
+      <ReviewScroll />
+      <footer className="bg-[#3b3330] text-[#fff6ed] pt-16 pb-8 border-t-4 border-brand-gold">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Column 1: Brand Legacy & Trust Pledge */}
           <div className="space-y-6">
@@ -318,5 +321,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }
